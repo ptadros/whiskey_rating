@@ -1,0 +1,15 @@
+version: '3.9'
+
+volumes:
+  whiskey_data:
+    driver: local
+
+services:
+  db:
+    image: postgres:13.1
+    ports:
+      - "5431:5432"
+    volumes:
+      - whiskey_data:/var/lib/postgresql/data:rw
+    environment:
+      - POSTGRES_PASSWORD=postgres
