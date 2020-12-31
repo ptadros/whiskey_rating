@@ -14,7 +14,7 @@
  *= require_self
  */
 
- .bg_primary-color {
+.bg_primary-color {
   background-color: #FFFFFF;
 }
 .primary-color {
@@ -23,6 +23,10 @@
 .bg_secondary-color {
   background-color: #293241;
 }
+.bg-header {
+  background-color: aqua;
+}
+
 .secondary-color {
   color: #293241;
 }
