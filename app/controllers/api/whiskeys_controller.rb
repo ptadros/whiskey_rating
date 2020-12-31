@@ -1,4 +1,4 @@
-class WhiskeysController < ApplicationController
+class Api::WhiskeysController < ApplicationController
   def index
     whiskeys = Whiskey.order(:title).all
 
