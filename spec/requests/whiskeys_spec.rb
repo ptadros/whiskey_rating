@@ -1,7 +1,19 @@
 require 'rails_helper'
 
 RSpec.describe "Whiskeys", type: :request do
-  describe "POST /create" do
+  describe "GET /whiskeys" do
+    let!(:whiskeys) do
+      create_list(:whiskey, 3)
+    end
+    it "returns http success" do
+      get "/whiskeys"
+
+      expect(response).to have_http_status(:success)
+      expect(json.length).to eq 3
+    end
+  end
+
+  describe "POST /whiskeys" do
     let(:whiskey_params) do
       {
         title: 'Whiskey 1',

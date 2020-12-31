@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe Whiskey, type: :model do
-  let(:whiskey) { build(:Whiskey) }
+  let(:whiskey) { build(:whiskey) }
 
   describe '.title' do
     context 'when title is nil' do
