@@ -25,37 +25,41 @@ class Whiskeys extends React.Component {
 
   headers() {
     return (
-      <div className="row bg-header">
-        <div className="col-md-2">
-          Title
-        </div>
-        <div className="col-md-4">
-          Description
-        </div>
-        <div className="col-md-2">
-          Taste
-        </div>
-        <div className="col-md-2">
-          Color
-        </div>
-        <div className="col-md-2">
-          Smokiness
-        </div>
-      </div>
+      <thead>
+        <tr>
+          <th>
+            Title
+          </th>
+          <th colSpan="2">
+            Description
+          </th>
+          <th>
+            Taste
+          </th>
+          <th>
+            Color
+          </th>
+          <th>
+            Smokiness
+          </th>
+        </tr>
+      </thead>
     )
   }
 
   render() {
     const { list } = this.state;
     const whiskeys = (
-      <div className="container">
-        { this.headers() }
-        {
-          list.map((whiskey, index) => (
-            <Whiskey whiskey={whiskey} key={index} />
-          ))
-        }
-      </div>
+      <table className="table table-striped">
+        { this.headers()}
+        <tbody>
+          {
+            list.map((whiskey, index) => (
+              <Whiskey whiskey={whiskey} key={index} />
+            ))
+          }
+        </tbody>
+      </table>
     );
 
     const noWhiskeys = (
@@ -76,7 +80,7 @@ class Whiskeys extends React.Component {
         <div className="py-5">
           <main className="container">
             <div className="text-right mb-3">
-              <Link to="/whiskey" className="btn custom-button">
+              <Link to="/whiskey" className="btn btn-primary">
                 Create New Whiskey
               </Link>
             </div>

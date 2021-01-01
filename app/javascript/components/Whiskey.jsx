@@ -5,23 +5,23 @@ export default class Whiskey extends React.Component {
     const { whiskey } = this.props;
 
     return (
-      <div className="row mb-2 mt-2">
-        <div className="col-md-2">
+      <tr>
+        <td>
           { whiskey.title }
-        </div>
-        <div className="col-md-4">
+        </td>
+        <td colSpan="2">
         { whiskey.description }
-        </div>
-        <div className="col-md-2">
+        </td>
+        <td>
           { whiskey.taste }
-        </div>
-        <div className="col-md-2">
+        </td>
+        <td>
           { whiskey.color }
-        </div>
-        <div className="col-md-2">
+        </td>
+        <td>
           { whiskey.smokiness }
-        </div>
-      </div>
+        </td>
+      </tr>
     )
   }
 }
