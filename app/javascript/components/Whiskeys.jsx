@@ -52,28 +52,15 @@ class Whiskeys extends React.Component {
     )
   }
 
-  search = (event) => {
-    const query = event.target.value.toLowerCase();
-    this.setState(prevState =>{
-      return {
-        filters: { ...prevState.filters, query: query }
-      };
-    }, () => {
-      let matchedList = this.getMatchedList();
-      this.setState({matchedList});
-    });
+  setFilter = (name, value) => {
+    let { filters } = this.state
+    filters[name] = value
+    this.setState({filters}, this.updateMatchedList);
   }
 
-  selectChange = (event) => {
-    const grade = parseInt(event.target.value);
-    this.setState(prevState =>{
-      return {
-        filters: { ...prevState.filters, minGrade: grade }
-      };
-    }, () => {
-      let matchedList = this.getMatchedList();
-      this.setState({matchedList});
-    });
+  updateMatchedList() {
+    let matchedList = this.getMatchedList();
+    this.setState({matchedList});
   }
 
   getMatchedList() {
@@ -132,7 +119,7 @@ class Whiskeys extends React.Component {
                 Create New Whiskey
               </Link>
             </div>
-            <Search onChange={this.search} onSelectChange={this.selectChange} />
+            <Search setFilter={this.setFilter} />
             {matchedList.length > 0 ? whiskeys : noWhiskeys}
             <Link to="/" className="btn btn-link">
               Home

@@ -12,7 +12,7 @@ export default class Search extends React.Component {
             id="search"
             placeholder="Search by title or description"
             className="form-control"
-            onChange={this.props.onChange}
+            onChange={ event => this.props.setFilter('query', event.target.value.toLowerCase())}
           />
         </div>
         <div className="input-group mb-3 col-md-3">
@@ -22,7 +22,8 @@ export default class Search extends React.Component {
           <select
             className="custom-select"
             id="minGradeSelect"
-            onChange={this.props.onSelectChange}
+            name="minGrade"
+            onChange={ event => this.props.setFilter('minGrade', parseInt(event.target.value))}
           >
             {
               [...Array(11)].map((_,i) => (
