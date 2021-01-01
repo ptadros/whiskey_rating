@@ -1,12 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import Search from "../components/Search";
 import Whiskey from "../components/Whiskey";
-
 class Whiskeys extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: []
+      list: [],
+      matchedList: [],
+      filters: {
+        query: '',
+        minGrade: 0
+      }
     };
   }
 
@@ -19,7 +24,7 @@ class Whiskeys extends React.Component {
         }
         throw new Error("Couldn't fetch Whiskeys.");
       })
-      .then(response => this.setState({ list: response }))
+      .then(response => this.setState({ list: response, matchedList: response }))
       .catch(() => this.props.history.push("/"));
   }
 
@@ -47,14 +52,57 @@ class Whiskeys extends React.Component {
     )
   }
 
+  search = (event) => {
+    const query = event.target.value.toLowerCase();
+    this.setState(prevState =>{
+      return {
+        filters: { ...prevState.filters, query: query }
+      };
+    }, () => {
+      let matchedList = this.getMatchedList();
+      this.setState({matchedList});
+    });
+  }
+
+  selectChange = (event) => {
+    const grade = parseInt(event.target.value);
+    this.setState(prevState =>{
+      return {
+        filters: { ...prevState.filters, minGrade: grade }
+      };
+    }, () => {
+      let matchedList = this.getMatchedList();
+      this.setState({matchedList});
+    });
+  }
+
+  getMatchedList() {
+    const { list, filters } = this.state;
+    let matchedList = list;
+
+    if(filters.query != '') {
+      matchedList = matchedList.filter(
+        w => w.title.toLowerCase().includes(filters.query) ||
+        w.description.toLowerCase().includes(filters.query)
+      )
+    }
+
+    matchedList = matchedList.filter(
+      w => w.taste >= filters.minGrade &&
+      w.color >= filters.minGrade &&
+      w.smokiness >= filters.minGrade
+    )
+    return matchedList;
+  }
+
   render() {
-    const { list } = this.state;
+    const { matchedList } = this.state;
     const whiskeys = (
       <table className="table table-striped">
         { this.headers()}
         <tbody>
           {
-            list.map((whiskey, index) => (
+            matchedList.map((whiskey, index) => (
               <Whiskey whiskey={whiskey} key={index} />
             ))
           }
@@ -63,9 +111,9 @@ class Whiskeys extends React.Component {
     );
 
     const noWhiskeys = (
-      <div className="vw-100 vh-50 d-flex align-items-center justify-content-center">
+      <div className="justify-content-left">
         <h4>
-          No Whiskeys yet. <Link to="/new_whiskey">create one</Link>
+          No Results found
         </h4>
       </div>
     );
@@ -80,13 +128,12 @@ class Whiskeys extends React.Component {
         <div className="py-5">
           <main className="container">
             <div className="text-right mb-3">
-              <Link to="/whiskey" className="btn btn-primary">
+              <Link to="/whiskey/new" className="btn btn-primary">
                 Create New Whiskey
               </Link>
             </div>
-            <div className="container">
-              {list.length > 0 ? whiskeys : noWhiskeys}
-            </div>
+            <Search onChange={this.search} onSelectChange={this.selectChange} />
+            {matchedList.length > 0 ? whiskeys : noWhiskeys}
             <Link to="/" className="btn btn-link">
               Home
             </Link>
