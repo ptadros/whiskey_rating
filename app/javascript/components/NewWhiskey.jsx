@@ -124,8 +124,8 @@ class NewWhiskey extends React.Component {
                 />
               </div>
 
-              <button type="submit" className="btn custom-button mt-3">
-                Create
+              <button type="submit" className="btn btn-primary mt-3">
+                Create Whiskey
               </button>
               <Link to="/whiskeys" className="btn btn-link mt-3">
                 Back to Whiskeys
