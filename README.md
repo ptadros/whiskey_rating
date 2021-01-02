@@ -12,7 +12,7 @@ This is a simple application which allow users to add Whiskeys they tried and ad
 - Node.js 10.19.0
 
 ### Prerequisites
-- Make sure you have installed (docker)[https://docs.docker.com/get-docker/] for your operating system
+- Make sure you have installed [docker](https://docs.docker.com/get-docker/) for your operating system
 
 ### Setup Database
 - Setup database and initialize with seeds
